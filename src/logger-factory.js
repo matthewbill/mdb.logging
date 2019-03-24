@@ -3,15 +3,22 @@ const EnvironmentNames = require('mdb-core');
 const LogLevels = require('./log-levels');
 
 class LoggerFactory {
-  getLogger(environment, isDebug) {
+  getLogger(options) {
     const self = this;
-    const logLevel = self.getLogLevel(environment, isDebug);
+    const logLevel = self.getLogLevel(options.environment, options.isDebug);
     const logger = winston.createLogger({
       level: logLevel,
       transports: [
         new (winston.transports.Console)({ colorize: true, timestamp: true }),
       ],
     });
+    if (options.file) {
+      const fileTransport = new (winston.transports.File)({
+        filename: 'combined.log',
+        timestamp: true,
+      });
+      logger.transports.push(fileTransport);
+    }
     logger.info(`Logger created with level of ${logLevel}.`);
     return logger;
   }

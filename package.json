@@ -21,6 +21,7 @@
     "homepage": "https://github.com/matthewbill/mdb-logging#readme",
     "bugs": "https://github.com/matthewbill/mdb-logging/issues/",
     "dependencies": {
+        "jest": "24.8.0",
         "mdb-core": "0.1.0",
         "winston": "3.2.1"
     },
